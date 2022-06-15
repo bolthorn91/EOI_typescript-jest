@@ -1,13 +1,16 @@
+import { countChars } from "./adapters";
+
 interface AdditionalDataInterface {
     house: boolean;
     car: boolean;
 }
 
 export class User {
-    _name: string;
-    _age: number;
-    _email: string;
-    _additionalData: AdditionalDataInterface;
+    private _name: string;
+    private _surname: string;
+    private _age: number;
+    private _email: string;
+    private _additionalData: AdditionalDataInterface;
 
     constructor() {
     }
@@ -18,6 +21,14 @@ export class User {
 
     set name(name) {
         this._name = name;
+    }
+
+    get surname() {
+        return this._surname;
+    }
+
+    set surname(surname) {
+        this._surname = surname;
     }
 
     get age() {
@@ -42,6 +53,20 @@ export class User {
 
     set additionalData(additionalData) {
         this._additionalData = additionalData;
+    }
+
+    getFullName(): string {
+        return `${this.name} ${this.surname}`;
+    }
+
+    getEmailAlias(): string | null {
+        if (this.email.includes('@')) {
+            const alias = this.email.split('@')[0];
+            if (alias !== '') {
+                return alias;
+            }
+        }
+        return null;
     }
 }
 
